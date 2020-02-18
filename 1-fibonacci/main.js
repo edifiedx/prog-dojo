@@ -32,11 +32,19 @@ const formatResult = (place, result) => {
   return `The <strong>${place}${indicator}</strong> number of the Fibonacci sequence is <strong>${result}</strong>.`;
 }
 
-const getFib = (place) => {
-  const parsed = parseInt(place)
+const invalidInput = (input) => {
+  const parsed = parseInt(input)
   const vowels = ['a', 'e', 'i', 'o', 'u']
-  const aOrAn = vowels.indexOf(place[0]) > -1 ? 'an' : 'a'
-  if (place == 0 || isNaN(parsed)) {return `What the fuck is ${aOrAn} \"${place == '0' ? 'zero' : place}\"th place?`;}
+  const aOrAn = vowels.includes(input[0]) ? 'an' : 'a'
+  if (input == 0 || isNaN(parsed)) {
+    return `What the fuck is ${aOrAn} \"${input == '0' ? 'zero' : input}\"th place?`;
+  }
+}
+
+const getFib = (place) => {
+  if (invalidInput(place)) {
+    return invalidInput(place)
+  }
   place -= 1
   let knownFibs = [0, 1]
   if (place < 2) {return knownFibs[place];}
