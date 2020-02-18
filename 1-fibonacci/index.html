@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Fibonacci Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="empty"></div>
+    <div class="center">
+        <header>Fibonacci Calculator</header>
+        <div class="input-wrapper">
+            <input id="fibInput" onkeypress="handleKeys(event)"></input>
+            <button id="fibButton" onClick="displayResults()">Submit</button>
+            <button id="clearButton" onClick="clearResults()">x</button>
+        </div>
+        <div id="fibResult">
+        </div>
+    </div>
+    <div class="empty"></div>
+</body>
+
+</html>

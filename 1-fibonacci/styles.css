@@ -1,0 +1,70 @@
+:root {
+  --color1: #594F4F;
+  --color2: #547980;
+  --color3: #45ADA8;
+  --color4: #9DE0AD;
+  --color5: #E5FCC2;
+}
+
+/* body * { border: 1px dashed red; } */
+
+body {
+  background: radial-gradient(
+    circle at bottom left,
+    var(--color2),
+    var(--color3),
+    var(--color4),
+    var(--color5)
+    );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  height: 100vh;
+  margin: 0;
+}
+
+#fibResult {
+  font-size: smaller;
+  height: 200px;
+  overflow: auto;
+  line-height: 20px;
+}
+.center {
+  border: 1px solid var(--color2);
+  background-color: rgba(0,0,0,0.2);
+  min-width: 666px;
+  border-radius: 4px;
+}
+
+.input-wrapper input {
+  width: 75%;
+}
+
+header {
+  display: block;
+  font-size: larger;
+  margin: 8px;
+}
+
+input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  text-align: center;
+  padding: 4px;
+  max-width: 200px;
+}
+
+button {
+  outline: none;
+  border: 1px solid var(--color2);
+  background-color: var(--color5);
+  padding: 4px;
+  font-weight: bolder;
+}
