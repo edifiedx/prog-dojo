@@ -33,9 +33,13 @@ const formatResult = (place, result) => {
 }
 
 const getFib = (place) => {
+  const parsed = parseInt(place)
+  const vowels = ['a', 'e', 'i', 'o', 'u']
+  const aOrAn = vowels.indexOf(place[0]) > -1 ? 'an' : 'a'
+  if (place == 0 || isNaN(parsed)) {return `What the fuck is ${aOrAn} \"${place == '0' ? 'zero' : place}\"th place?`;}
   place -= 1
   let knownFibs = [0, 1]
-  if (place < 1) {return knownFibs[place];}
+  if (place < 2) {return knownFibs[place];}
   for (let i = 1; i < place; i++) {
     let first = knownFibs.shift()
     let second = knownFibs[0]
