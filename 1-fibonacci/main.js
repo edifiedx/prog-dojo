@@ -32,13 +32,11 @@ const formatResult = (place, result) => {
   return `The <strong>${place}${indicator}</strong> number of the Fibonacci sequence is <strong>${result}</strong>.`;
 }
 
-function getFib(place, knownFibs = {1:0, 2:1}) {
-  console.log(place, knownFibs);
-  if (knownFibs[place] === undefined) {
-    let value = getFib(place - 1, knownFibs) + getFib(place -2, knownFibs)
-    knownFibs[place] = value
-    return value;
-  } else {
-    return knownFibs[place];
+function getFib(place) {
+  let knownFibs = [0, 1]
+  for (let i = 2; i < place; i++) {
+    let sum = knownFibs[i - 1] + knownFibs[i - 2]
+    knownFibs.push(sum)
   }
+  return knownFibs[place - 1];
 }
