@@ -28,11 +28,14 @@ namespace PigLatinApi.Controllers
 
         private string TranslateWord(string word)
         {
+            var isCapitalized = char.IsUpper(word[0]);
             var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
             var firstVowelIndex = word.IndexOfAny(vowels);
-            var prefix = word[firstVowelIndex..];
-            var root = word[..firstVowelIndex];
-            var suffix = firstVowelIndex == 0 ? "way" : "ay"; 
+            var prefix = word[firstVowelIndex..].ToLower();
+            var root = word[..firstVowelIndex].ToLower();
+            var suffix = firstVowelIndex == 0 ? "way" : "ay";
+
+            prefix = $"{(isCapitalized ? Char.ToUpper(prefix[0]) : prefix[0])}{prefix[1..]}";
 
             return $"{prefix}{root}{suffix}";
         }
