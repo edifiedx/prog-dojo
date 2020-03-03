@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PigLatinApi.Controllers
 {
@@ -15,42 +12,32 @@ namespace PigLatinApi.Controllers
         // -> Ellohay, orldway!
 
         [HttpGet]
-        public ActionResult<string> GetTranslation(string english)
+        public ActionResult<string> GetTranslation(string sentence)
         {
-            var result = new StringBuilder();
-            foreach(string word in english.Split(' '))
-            {
-                result.Append(TranslateWord(word)).Append(' ');
-            }
-
-            return result.ToString();
+            var sourceWords = sentence.Split(' ');
+            var targetWords = sourceWords.Select(w => TranslateWord(w));
+            return String.Join(' ', targetWords);
         }
-
         private string TranslateWord(string word)
         {
-            var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
-            var punctuationMarks = new char[] { '.', ',', '"', '\'', '-', '?', ':', ';', '!' };
-            var isCapitalized = char.IsUpper(word[0]);
-            var punctuationMark = "";
-            foreach(var character in word)
-            {
-                if(punctuationMarks.Contains(character))
-                {
-                    punctuationMark = character.ToString();
-                }
-            }
-            if (punctuationMark != "")
-            {
-                word = word[..^1];
-            }
-            var firstVowelIndex = word.IndexOfAny(vowels);
-            var prefix = word[firstVowelIndex..].ToLower();
-            var root = word[..firstVowelIndex].ToLower();
-            var suffix = firstVowelIndex == 0 ? "way" : "ay";
+            var translated = new PigLatin(word);
+            var prefix = translated.GetPrefix();
+            var root = translated.GetRoot();
+            var suffix = translated.GetSuffix();
 
-            prefix = $"{(isCapitalized ? Char.ToUpper(prefix[0]) : prefix[0])}{prefix[1..]}";
+            return $"{prefix}{root}{suffix}";
+        }
+    }
 
-            return $"{prefix}{root}{suffix}{punctuationMark}";
+    [ApiController]
+    [Route("[controller]")]
+    public class TestController : ControllerBase
+    {
+        [HttpGet]
+        public ActionResult<string> GetTest(string sentence)
+        {
+            var words = sentence.Split(' ');
+            return String.Join(" ", words);
         }
     }
 }
