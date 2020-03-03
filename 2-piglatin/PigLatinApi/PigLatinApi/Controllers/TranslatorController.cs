@@ -28,8 +28,21 @@ namespace PigLatinApi.Controllers
 
         private string TranslateWord(string word)
         {
-            var isCapitalized = char.IsUpper(word[0]);
             var vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
+            var punctuationMarks = new char[] { '.', ',', '"', '\'', '-', '?', ':', ';', '!' };
+            var isCapitalized = char.IsUpper(word[0]);
+            var punctuationMark = "";
+            foreach(var character in word)
+            {
+                if(punctuationMarks.Contains(character))
+                {
+                    punctuationMark = character.ToString();
+                }
+            }
+            if (punctuationMark != "")
+            {
+                word = word[..^1];
+            }
             var firstVowelIndex = word.IndexOfAny(vowels);
             var prefix = word[firstVowelIndex..].ToLower();
             var root = word[..firstVowelIndex].ToLower();
@@ -37,7 +50,7 @@ namespace PigLatinApi.Controllers
 
             prefix = $"{(isCapitalized ? Char.ToUpper(prefix[0]) : prefix[0])}{prefix[1..]}";
 
-            return $"{prefix}{root}{suffix}";
+            return $"{prefix}{root}{suffix}{punctuationMark}";
         }
     }
 }
